@@ -9,7 +9,7 @@ FROM layoffs;
 -- 3. Null values or blank values
 -- 4. Remove Any Columns
 
--- 1. Create a table to work on 
+-- A. Create a table to copy the raw data to work on. 
 
 CREATE TABLE layoffs_staging
 LIKE layoffs; 
@@ -20,8 +20,6 @@ FROM layoffs_staging;
 INSERT layoffs_staging
 SELECT * 
 FROM layoffs; 
-
--- There always good to work with a copy of the raw of data
 
 -- 1. Duplicates 
 
@@ -42,7 +40,15 @@ WHERE row_num > 1;
 
 SELECT *
 FROM layoffs_staging
-WHERE company = 'Casper' ;
+WHERE company = 'Casper' ; -- 3 rows found and two of them have NULL data for total_laid_off
+
+SELECT *
+FROM layoffs_staging
+WHERE company = 'Casper' AND total_laid_off IS NULL; -- verification of two rows to be deleted
+
+DELETE
+FROM layoffs_staging
+WHERE company = 'Casper' AND total_laid_off IS NULL; -- 2 rows deleted.
 
 
 SELECT *
