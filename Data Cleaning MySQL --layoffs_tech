@@ -21,7 +21,7 @@ INSERT layoffs_staging
 SELECT * 
 FROM layoffs; 
 
--- 1. Duplicates 
+-- 1. Remove Duplicates 
 
 SELECT * 
 FROM layoffs_staging;
@@ -119,7 +119,9 @@ WHERE row_num > 1;
 SELECT *
 FROM layoffs_staging2;
 
--- Standardizing data
+
+
+-- 2. Standardizing data
 
 SELECT *
 FROM layoffs_staging2;
@@ -182,7 +184,9 @@ MODIFY COLUMN `date` DATE;  -- change the format of the field from text to date
 SELECT *
 FROM layoffs_staging2;
 
--- NULL data  checking 
+
+
+-- 3. Null values or blank values
 
 SELECT * 
 FROM layoffs_staging2
@@ -214,14 +218,15 @@ FROM layoffs_staging2
 WHERE total_laid_off IS NULL
 AND percentage_laid_off IS NULL;
 
--- remove the data that we wont use it
-
 DELETE			
 FROM layoffs_staging2
 WHERE total_laid_off IS NULL
 AND percentage_laid_off IS NULL;
 
--- remove a column
+
+
+-- 4. Remove Any Columns
+
 ALTER TABLE layoffs_staging2
 DROP COLUMN row_num; 
 
