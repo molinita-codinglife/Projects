@@ -84,9 +84,7 @@ WHERE row_num > 1; -- after check each row that has only duplicates, it can be d
 
 
 
-
-
--- Noted below is a different method to deleted by creating a new table and adding a row_num  
+-- Noted below a new table is created in order to remove duplicates using the row_num
 
 CREATE TABLE `layoffs_staging2` (
   `company` text,
@@ -118,6 +116,8 @@ DELETE
 FROM layoffs_staging2
 WHERE row_num > 1;
 
+SELECT *
+FROM layoffs_staging2;
 
 
 
